@@ -1,11 +1,5 @@
 # Contributing to steam-tradeoffers
 
-__This is not a helpdesk__.
-
-__Please read the [FAQ](https://github.com/Alex7Kom/node-steam-tradeoffers/wiki/FAQ)__ first if you have any questions.
-
-If your question is not answered here, please ask it in [https://github.com/steam-forward/node-steam-forum](https://github.com/steam-forward/node-steam-forum), __please do not open an issue here__. Issues are only for bugs and feature requests. All question issues here will be closed and locked on the spot.
-
 ## Bug Reports
 
 Bug reports without a minimal test case are rejected. If your bot just returns an error and doesn't crash, the library most likely works correctly. Please double check your own code for issues. Note that __Steam itself__ does most of the checks which generate such errors, not the library.
