@@ -195,25 +195,75 @@ SteamTradeOffers.prototype.getSummary = function(options, callback) {
 };
 
 SteamTradeOffers.prototype.declineOffer = function(options, callback) {
-  doAPICall.bind(this)({
-    method: 'DeclineTradeOffer/v1',
-    params: {
-      tradeofferid: options.tradeOfferId
-    },
-    post: true,
-    callback: callback
-  });
+
+  var cb = function () {
+    if (typeof callback === 'function') {
+      callback.apply(null, arguments);
+    }
+  };
+
+  var formFields = {
+    sessionid: this.sessionID,
+  };
+
+  this._requestCommunity.post({
+    uri: communityURL + '/tradeoffer/' + options.tradeOfferId + '/decline',
+    json: true,
+    checkJsonError: false,
+    checkHttpError: false,
+    form: formFields
+  }, function(error, response, body) {
+    if (error) {
+      return cb(error);
+    }
+    if (body && body.strError) {
+      return cb(new Error(body.strError));
+    }
+    if (response && response.statusCode !== 200) {
+      return cb(new Error(response.statusCode));
+    }
+    if (!body) {
+      return cb(new Error('Invalid Response'));
+    }
+
+    cb(null, body);
+  }.bind(this));
 };
 
 SteamTradeOffers.prototype.cancelOffer = function(options, callback) {
-  doAPICall.bind(this)({
-    method: 'CancelTradeOffer/v1',
-    params: {
-      tradeofferid: options.tradeOfferId
-    },
-    post: true,
-    callback: callback
-  });
+  var cb = function () {
+    if (typeof callback === 'function') {
+      callback.apply(null, arguments);
+    }
+  };
+
+  var formFields = {
+    sessionid: this.sessionID,
+  };
+
+  this._requestCommunity.post({
+    uri: communityURL + '/tradeoffer/' + options.tradeOfferId + '/cancel',
+    json: true,
+    checkJsonError: false,
+    checkHttpError: false,
+    form: formFields
+  }, function(error, response, body) {
+    if (error) {
+      return cb(error);
+    }
+    if (body && body.strError) {
+      return cb(new Error(body.strError));
+    }
+    if (response && response.statusCode !== 200) {
+      return cb(new Error(response.statusCode));
+    }
+    if (!body) {
+      return cb(new Error('Invalid Response'));
+    }
+
+    cb(null, body);
+  }.bind(this));
+  
 };
 
 SteamTradeOffers.prototype.acceptOffer = function(options, callback) {
